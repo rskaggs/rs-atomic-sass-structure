@@ -1,0 +1,28 @@
+%reset-font {
+	font-size: 100%;
+	font: inherit;
+}
+%reset-main {
+	@extend %reset-font;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+}
+%reset-block {
+	display: block;
+}
+%reset-list {
+	list-style: none;
+}
+%reset-quotes {
+	quotes: none;
+	&:before, &:after {
+		content: '';
+		content: none;
+	}
+}
+%reset-table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}

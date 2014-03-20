@@ -1,0 +1,124 @@
+@mixin twoColorGradient($top, $bottom, $fallback: true) {
+	@if $fallback == true {
+		background:mix($top, $bottom);
+	}
+	background-image: -ms-linear-gradient(top, $top 0%, $bottom 100%);
+	background-image: -moz-linear-gradient(top, $top 0%, $bottom 100%);
+	background-image: -o-linear-gradient(top, $top 0%, $bottom 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, $top), color-stop(1, $bottom));
+	background-image: -webkit-linear-gradient(top, $top 0%, $bottom 100%);
+	background-image: linear-gradient(to bottom, $top 0%, $bottom 100%);
+}
+@mixin threeColorGradient($top, $middle, $bottom, $fallback: true) {
+	@if $fallback == true {
+		background:mix($top, $bottom);
+	}
+	background-image: -ms-linear-gradient(top, $top 0%, $middle 50%, $bottom 100%);
+	background-image: -moz-linear-gradient(top, $top 0%, $middle 50%, $bottom 100%);
+	background-image: -o-linear-gradient(top, $top 0%, $middle 50%, $bottom 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, $top), color-stop(.5, $middle), color-stop(1, $bottom));
+	background-image: -webkit-linear-gradient(top, $top 0%, $middle 50%,$bottom 100%);
+	background-image: linear-gradient(to bottom, $top 0%, $middle 50%, $bottom 100%);
+}
+
+@mixin transition($speed, $type:linear, $target:all) {
+	$transVal: mergeList($target, '', '#{$speed} #{$type}');
+	-webkit-transition: $transVal;
+	-moz-transition: $transVal;
+	-o-transition: $transVal;
+	transition: $transVal; 
+}
+
+@mixin removeTransition {
+	-moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: all 0 none;
+    transition: none;
+}
+@mixin bp($width) {
+	@media only screen and (min-width: $width) {
+		@content;
+	}
+	@if $width >= $bp-tablet and $width < $bp-desktop {
+		.lt-ie9 .bp-tablet &, .lt-ie9 .bp-desktop & { 
+			@content;
+		}
+	} @else if $width >= $bp-desktop {
+		.lt-ie9 .bp-desktop & { 
+			@content;
+		}
+	}
+}
+@mixin retina {
+	@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+	       only screen and (min-resolution: 144dpi) {
+		@content;
+	}
+}
+@mixin bp-retina($width) {
+	@media only screen and (min-width: $width) and (-webkit-min-device-pixel-ratio: 1.5),
+		   only screen and (min-width: $width) and (min-resolution: 144dpi){ 
+	    @content;
+	}
+}
+
+@mixin clear-after-fix {
+	&:after {
+		content: '';
+		display: block;
+		clear:both;
+	}
+}
+@mixin border-arrow($direction, $size, $color) {
+	border: $size solid transparent;
+	@if $direction == up {
+		border-top: none;
+		border-bottom: $size solid $color;
+	} @else if $direction == down {
+		border-bottom: none;
+		border-top: $size solid $color;
+	} @else if $direction == left {
+		border-left: none;
+		border-right: $size solid $color;
+	} @else if $direction == right {
+		border-right: none;
+		border-left: $size solid $color;
+	}
+}
+
+
+
+@mixin perspective($perspective: 500px) {
+  -webkit-perspective: $perspective;
+     -moz-perspective: $perspective;
+      -ms-perspective: $perspective;
+          perspective: $perspective;
+}
+@mixin rotateY($rotateY) {
+  -webkit-transform: rotateY($rotateY);  -webkit-transform-style: preserve-3d;
+     -moz-transform: rotateY($rotateY);     -moz-transform-style: preserve-3d;
+      -ms-transform: rotateY($rotateY);      -ms-transform-style: preserve-3d;
+          transform: rotateY($rotateY);          transform-style: preserve-3d;
+}
+@mixin rotate($rotateX) {
+  -webkit-transform: rotate($rotateX);
+     -moz-transform: rotate($rotateX);
+      -ms-transform: rotate($rotateX);
+          transform: rotate($rotateX);
+}
+@mixin extends-icons($list) {
+	@each $icon in $list {
+		&.-#{$icon} {
+			@extend %icon-#{$icon};
+		}
+	}
+}
+@mixin keyframes($name) {
+	@keyframes #{$name} {
+		@content;
+	}
+
+	@-webkit-keyframes #{$name} {
+		@content;
+	}
+}

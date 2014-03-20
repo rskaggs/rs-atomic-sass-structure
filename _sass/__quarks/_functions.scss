@@ -1,0 +1,13 @@
+@function em($px, $base: 16px) {
+    @return ($px / $base) * 1em;
+}
+@function ptToEm($pt, $base: 12pt) {
+	@return ($pt / $base) * 1em;
+}
+@function mergeList($list, $prefix:"", $suffix:"") {
+	$returnedList: #{$prefix} nth($list, 1) #{$suffix};
+	@for $i from 2 through length($list) {
+		$returnedList: append($returnedList, #{$prefix} nth($list, $i) #{$suffix}, comma);
+	}
+	@return $returnedList;
+}
